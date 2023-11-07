@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Page</title>
+</head>
+<body>
+    <p>Test con $ :</p>
+    <table>
+        <tr>
+            <th>Book Id</th>
+            <th>Book Name</th>
+            <th>ISBN</th>
+            </tr>
+            <tr>
+                <td th:text="${book.Id}"> </td>
+                <td th:text="${book.title}">Libro</td>
+                <td th:text="${book.isbn}">ISBN</td>
+        </tr>
+    </table>
+
+    <p>Test con * :</p>
+    <table>
+        <tr>
+            <th>Book Id</th>
+            <th>Book Name</th>
+            <th>ISBN</th>
+        </tr>
+        <tr th:object="${book}">
+            <td th:text="*{Id}"> </td>
+            <td th:text="*{title}">Libro</td>
+            <td th:text="*{isbn}">ISBN</td>
+        </tr>
+    </table>
+
+    <div>
+        <p > @{/testpage.html} diventa <span th:text="@{/testpage.html}"></span> --> risolve l'indirizzo completo (in Spring Boot di default è nullo, ma quanto generi myapp.war diventa /myapp/testpage.html</p>
+        <p > @{/testpage.html(id=${book.Id},title=${book.title})} diventa <span th:text="@{/testpage.html(id=${book.Id},title=${book.title})}"></span> </p>
+
+        <p > .. e ~ risolvono il path corrente (dell'applicativo)</p>
+        <p > @{../templates/book} diventa <span th:text="@{../templates/book}"></span> </p>
+        <p > @{~/templates/book} diventa <span th:text="@{~/templates/book}"></span> </p>
+
+        <p > @{//www.google.com} usato con th:ref crea un link a http://www.google.com <span th:text="@{//www.google.com}"></span> </p>
+
+    </div>
+</body>
+</html>
